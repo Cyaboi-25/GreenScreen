@@ -492,7 +492,6 @@ export default function LawnScan() {
               ref={fileRef}
               type="file"
               accept="image/*"
-              capture="environment"
               style={{ display: "none" }}
               onChange={(e) => handleFile(e.target.files?.[0])}
             />
