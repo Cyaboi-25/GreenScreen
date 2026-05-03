@@ -17,7 +17,19 @@ npm install
 npm run dev
 ```
 
-## Important: API Key Security
-The current MVP calls the Anthropic API directly from the browser.
-For production, add a backend proxy (Cloudflare Worker or Express server)
-to keep API keys server-side.
+## Deploy to Cloudflare Pages
+
+The API key is proxied through a Cloudflare Pages Function at `functions/api/scan.js`,
+so it stays server-side.
+
+1. Push this repo to GitHub.
+2. In the Cloudflare dashboard: **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → select this repo.
+3. Build settings:
+   - **Framework preset:** Vite
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+4. After the first deploy, go to **Settings** → **Environment variables** → add a **Production** variable:
+   - Name: `ANTHROPIC_KEY`
+   - Value: your `sk-ant-...` key
+   - Mark it as **Encrypt** (secret)
+5. Redeploy. Open the live URL on your phone, upload a lawn photo, and scan.
